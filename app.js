@@ -5,7 +5,7 @@ const port = 3000;
 app.use(express.json());
 
 
-let tasks = [
+let tareas = [
     { id: "1", descripcion: 'Revisar correos', finalizada: false },
     { id: "2", descripcion: 'Gestionar pendientes administrativos', finalizada: true },
     { id: "3", descripcion: 'Ejecutar mantenimientos pendientes', finalizada: false },
@@ -13,27 +13,27 @@ let tasks = [
 ];
 
 // obtener tareas
-app.get('/tasks', (req, res) => {
-res.json(tasks);
+app.get('/tareas', (req, res) => {
+res.json(tareas);
 });
 
 // crear nueva tarea
-app.post('/tasks', (req, res) => {
-const task = req.body;
-tasks.push(task);
-res.status(201).json(task);
+app.post('/tareas', (req, res) => {
+const tarea = req.body;
+tareas.push(tarea);
+res.status(201).json(tarea);
 });
 
 // actualizar tarea existente
-app.put('/tasks/:id', (req, res) => {
+app.put('/tareas/:id', (req, res) => {
 const id = req.params.id;
-const updatedTask = req.body;
+const actualizaTarea = req.body;
 
 // Buscar la tarea por ID y actualizarla
-for (let i = 0; i < tasks.length; i++) {
-if (tasks[i].id === id) {
-  tasks[i] = updatedTask;
-  return res.json(updatedTask);
+for (let i = 0; i < tareas.length; i++) {
+if (tareas[i].id === id) {
+  tareas[i] = actualizaTarea;
+  return res.json(actualizaTarea);
 }
 }
 
@@ -41,15 +41,15 @@ res.status(404).json({ error: 'Tarea no encontrada' });
 });
 
 // eliminar una tarea
-app.delete('/tasks/:id', (req, res) => {
+app.delete('/tareas/:id', (req, res) => {
 const id = req.params.id;
 
 // Filtrar tareas para eliminar por id
-tasks = tasks.filter((task) => task.id !== id);
+tareas = tareas.filter((tarea) => tarea.id !== id);
 
 res.status(204).send();
 });
 
 app.listen(port, () => {
-console.log(`Servidor iniciado en en http://localhost:${port}`);
+console.log(`Servidor iniciado en  http://localhost:${port}`);
 });
